@@ -6,7 +6,7 @@
 
 | | 模块 | 一句话结论 | 关键实测 |
 |---|---|---|---|
-| 1 | [FlashAttention](docs/01_flash_attention.md) | 快在**少搬数据**，不长在少算；在 6 GB 卡上决定性收益是显存 | N=2048 显存 **4.1 MB vs 532 MB**（129×）；N=4096 追平 SDPA（1.01×） |
+| 1 | [FlashAttention](docs/01_flash_attention.md) | 快在**少搬数据**，不长在少算；在 6 GB 卡上决定性收益是显存 | N=2048 显存 **4.1 MB vs 532 MB**（129×）；速度与 SDPA 在 ±20% 内（跨两次重跑 0.63–1.19×） |
 | 2 | [PagedAttention](docs/02_paged_attention.md) | 它不是更快的 attention，它是**显存分配器** | 碎片 **80.09% → 0.89%**；并发序列 **26.5 → 133.1**（5.0×） |
 | 3 | [MoE](docs/03_moe.md) | 省的是**权重读取**，不是算力；batch=1 时是亏的 | batch=1 慢 4.05×；N=2048 快 3.37×；但仍慢于等算力 dense（0.78×） |
 | 4 | [投机解码](docs/04_speculative_decoding.md) | 成立的前提是"验证 k 个 ≈ 生成 1 个" | **k=5 / k=1 前向 ≈ 1.13（多次 run 落在 0.94–1.39）**；散文接受率 4.4% vs 代码 91.5% |
