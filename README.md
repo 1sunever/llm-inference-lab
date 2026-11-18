@@ -47,9 +47,15 @@ bash scripts/run_all.sh                # 正确性 → 四个模块的基准 →
 单独跑一个：
 
 ```bash
-python tests/test_flash_attn.py                        # 12 个用例，含非整数倍长度
-python src/llm_lab/flash_attn/bench.py                 # 或 paged_attn / moe / spec_decode
+python tests/test_paged_kv.py          # 11 个用例（纯 CPU）
+python tests/test_spec_decode.py       #  7 个用例（纯 CPU）
+python tests/test_moe.py               #  8 个用例（纯 CPU）
+python tests/test_flash_attn.py        # 12 个用例（需 CUDA）
+python src/llm_lab/flash_attn/bench.py # 或 paged_attn / moe / spec_decode
 ```
+
+共 **38 个测试**。前三套不需要 GPU，也很轻（秒级）；`flash_attn` 那套需要 CUDA。
+装了 pytest 的话 `pytest tests/ -q` 也能跑（测试是普通函数 + assert，不依赖 fixture）。
 
 对照上游源码（可选，拉进 `_upstream/`，不进版本库）：
 
@@ -81,8 +87,9 @@ bash scripts/fetch_upstream.sh         # 见 third_party/README.md 的对照表
 | 分页 (bs=16) | 210,656 | 208,775 | **0.89%** | **133.1** |
 
 前缀命中率 82.32%（4 会话并发、共享 1024 token system prompt）；池子缩到 128 块时
-降到 78.59% 并出现装不下的块——命中率这个指标必须和 `clamped_blocks` 一起看。
-decode kernel 相对"批量 gather + SDPA"快 4.2–11.3×（上下文越长差距越小）。
+降到 71.13% 并出现装不下的块——命中率这个指标必须和 `clamped_blocks` 一起看。
+decode kernel 相对"批量 gather + SDPA"快 **2.5–4.3×**（上下文越长差距越小）。
+（这是空载 GPU 上的测量；早先一组在 GPU 被抢占时测得 4.2–11.3×，所以这条也按区间引用。）
 
 ### MoE（dim=512, hidden=1024, E=8, top_k=2）
 
@@ -139,7 +146,7 @@ src/llm_lab/
   moe/            router.py · layer.py · bench.py
   spec_decode/    sampling.py · tree.py · draft.py · bench.py
   common.py       计时 / 结果落盘 / 环境指纹
-tests/            test_flash_attn.py（12 用例）
+tests/            四套测试共 38 个用例（前 3 套纯 CPU）
 docs/             01–04 每个模块的原理、取舍、踩坑、追问清单
 results/          实验原始数据（json，含 env 与 git sha）
 figures/          由 results 生成的图
@@ -179,6 +186,11 @@ third_party/      上游对照表与论文索引（不含源码副本）
 RTX 4050 Laptop（6 GB, sm_89, 20 SM）· 驱动 592.82。
 
 Windows 原生跑 Triton 需换 `triton-windows`，本项目未验证。
+
+**本机网络备注**（复现时可能踩到）：`git` 走 **SSH 稳定可用**；
+对 `github.com` 的 HTTPS 不稳定——`git ls-remote`/`clone` 能通，
+但 `gh auth login --web` 需要的 OAuth POST 会超时。
+所以 `scripts/fetch_upstream.sh` 若卡住，优先改用 SSH 形式的远端地址。
 
 ## License
 

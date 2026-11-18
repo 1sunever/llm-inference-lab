@@ -37,6 +37,11 @@ class PrefixCache:
         # 观测指标
         self.hit_blocks = 0
         self.query_blocks = 0
+        # 让分配器在清空块内容前回调我们，把索引项摘掉。
+        # 早期版本是"分配完再 purge"，但那时 block_hash 已被清空，
+        # purge 变成空操作 -> 索引永不失效 -> 复用被覆盖的 KV。
+        # 这个 bug 由 tests/test_paged_kv.py::test_realloc_purges_index 抓到。
+        self.bm.on_reclaim = self._purge_by_id
 
     # ------------------------------------------------------------ 哈希
 
@@ -139,15 +144,13 @@ class PrefixCache:
     def alloc_blocks(self, n: int) -> List[int]:
         """所有分配都走这里，而不是直接调 bm.allocate。
 
-        因为 bm.allocate 会从 FIFO 空闲队列取块并清空内容，
-        如果取到的是一块已登记哈希的块，索引必须同步失效。
+        索引失效由 BlockManager.on_reclaim 回调负责（见 __init__），
+        所以这里只是转发——不要试图"分配之后再 purge"，那时哈希已经没了。
         """
-        ids = self.bm.allocate(n)
-        for pid in ids:
-            self._purge(pid)
-        return ids
+        return self.bm.allocate(n)
 
-    def _purge(self, block_id: int) -> None:
+    def _purge_by_id(self, block_id: int) -> None:
+        """在块被重新占用前摘掉它的索引。由 BlockManager 回调。"""
         h = self.bm.blocks[block_id].block_hash
         if h is not None:
             self.hash_to_block.pop(h, None)

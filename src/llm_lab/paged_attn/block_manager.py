@@ -20,7 +20,7 @@ from __future__ import annotations
 import enum
 from collections import deque
 from dataclasses import dataclass, field
-from typing import Deque, Dict, List, Optional, Sequence
+from typing import Callable, Deque, Dict, List, Optional, Sequence
 
 
 class AllocStatus(enum.Enum):
@@ -105,6 +105,11 @@ class BlockManager:
         ]
         self.free_ids: Deque[int] = deque(range(num_blocks))
         self.watermark = 0.01  # 与 vLLM 相同的保守系数：预留 1% 防抖动
+        # 块被重新占用前的回调，由 PrefixCache 注入，用于摘掉它的前缀索引。
+        # 为什么需要回调：allocate() 会先把 block_hash 清空再返回，
+        # 调用方拿到 id 后再去"回头 purge"是拿不到哈希的（这个坑我踩过，
+        # 结果是索引永不失效 -> 复用被覆盖的 KV -> 输出错但不报错）。
+        self.on_reclaim: Optional[Callable[[int], None]] = None
 
     # ---------- 容量 ----------
     def _usable(self) -> int:
@@ -138,6 +143,9 @@ class BlockManager:
         ids = [self.free_ids.popleft() for _ in range(num_blocks)]
         for pid in ids:
             blk = self.blocks[pid]
+            # 必须在清空 block_hash **之前**通知索引持有者
+            if self.on_reclaim is not None and blk.block_hash is not None:
+                self.on_reclaim(pid)
             blk.ref_count = 1
             blk.block_hash = None
             blk.evictable = False
@@ -187,6 +195,8 @@ class BlockManager:
             return block_id
         new_id = self.free_ids.popleft()
         new_blk = self.blocks[new_id]
+        if self.on_reclaim is not None and new_blk.block_hash is not None:
+            self.on_reclaim(new_id)
         new_blk.ref_count = 1
         new_blk.token_ids = list(blk.token_ids)
         new_blk.block_hash = None  # 副本内容独立，不再参与哈希去重

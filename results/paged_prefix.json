@@ -1,7 +1,7 @@
 {
   "experiment": "paged_prefix",
-  "timestamp": "2026-11-18T11:15:57+0800",
-  "git_sha": null,
+  "timestamp": "2026-11-18T11:44:34+0800",
+  "git_sha": "92ead2a",
   "env": {
     "torch": "2.13.0+cu130",
     "cuda_built": "13.0",
@@ -45,12 +45,12 @@
       {
         "workload": "very_tight(128 blocks)",
         "pool_blocks": 128,
-        "hit_blocks": 1138,
+        "hit_blocks": 1030,
         "query_blocks": 1448,
-        "hit_rate_pct": 78.59116022099448,
-        "prefill_tokens_saved": 18208,
+        "hit_rate_pct": 71.13259668508287,
+        "prefill_tokens_saved": 16480,
         "total_tokens": 23168,
-        "clamped_blocks": 122
+        "clamped_blocks": 208
       }
     ]
   }

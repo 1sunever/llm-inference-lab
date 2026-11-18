@@ -1,7 +1,7 @@
 {
   "experiment": "paged_decode",
-  "timestamp": "2026-11-18T11:15:58+0800",
-  "git_sha": null,
+  "timestamp": "2026-11-18T11:44:36+0800",
+  "git_sha": "92ead2a",
   "env": {
     "torch": "2.13.0+cu130",
     "cuda_built": "13.0",
@@ -27,45 +27,45 @@
         "batch": 8,
         "heads": 8,
         "head_dim": 64,
-        "fused_ms": 0.04608000069856644,
-        "gather_ms": 0.3988479971885681,
-        "speedup_fused_vs_gather": 8.655555363326554
+        "fused_ms": 0.04912000149488449,
+        "gather_ms": 0.21183999627828598,
+        "speedup_fused_vs_gather": 4.31270337604423
       },
       {
         "ctx_len": 256,
         "batch": 8,
         "heads": 8,
         "head_dim": 64,
-        "fused_ms": 0.02969600073993206,
-        "gather_ms": 0.3348959982395172,
-        "speedup_fused_vs_gather": 11.277478107992646
+        "fused_ms": 0.06348799914121628,
+        "gather_ms": 0.23950400203466415,
+        "speedup_fused_vs_gather": 3.77242951856044
       },
       {
         "ctx_len": 512,
         "batch": 8,
         "heads": 8,
         "head_dim": 64,
-        "fused_ms": 0.053247999399900436,
-        "gather_ms": 0.3527679890394211,
-        "speedup_fused_vs_gather": 6.624999868822878
+        "fused_ms": 0.09216000139713287,
+        "gather_ms": 0.26982399821281433,
+        "speedup_fused_vs_gather": 2.9277777140008663
       },
       {
         "ctx_len": 1024,
         "batch": 8,
         "heads": 8,
         "head_dim": 64,
-        "fused_ms": 0.1013759970664978,
-        "gather_ms": 0.5852160155773163,
-        "speedup_fused_vs_gather": 5.772727593430648
+        "fused_ms": 0.1510080024600029,
+        "gather_ms": 0.4705280065536499,
+        "speedup_fused_vs_gather": 3.1159143812810677
       },
       {
         "ctx_len": 2048,
         "batch": 8,
         "heads": 8,
         "head_dim": 64,
-        "fused_ms": 0.24371199309825897,
-        "gather_ms": 1.0291200280189514,
-        "speedup_fused_vs_gather": 4.222689310181114
+        "fused_ms": 0.3051519989967346,
+        "gather_ms": 0.7726239860057831,
+        "speedup_fused_vs_gather": 2.531931589981329
       }
     ]
   }
