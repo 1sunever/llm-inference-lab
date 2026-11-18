@@ -192,20 +192,20 @@ Windows 原生跑 Triton 需换 `triton-windows`，本项目未验证。
 但 `gh auth login --web` 需要的 OAuth POST 会超时。
 所以 `scripts/fetch_upstream.sh` 若卡住，优先改用 SSH 形式的远端地址。
 
-## License
-
-MIT（代码）。第三方材料见 [NOTICE](NOTICE)。实验数据由本仓库脚本实跑生成，可自由引用。
----
-
 ## 发布到 GitHub
 
-仓库内容已完成，但**发布需要一次外部授权**（本机凭据不在仓库里）：
+仓库内容已完成，但**发布需要一次外部授权**（凭据不在仓库里）。本机对 `github.com`
+的 HTTPS 不稳定——`gh auth login --web` 所需的 OAuth POST 会超时，而 SSH 可用。
 
 ```bash
 bash scripts/publish.sh --dry-run   # 先看它会做什么
 bash scripts/publish.sh             # 正式发布
 ```
 
-两条路径脚本会自动判断：已 `gh auth` 就直接建仓推送；否则需先在网页建好**空**仓库
-（不勾 README/license），脚本用 SSH 推。离线时也可整体搬运：
-`git bundle create lab.bundle --all`。
+脚本自动判断走哪条路：已 `gh auth` 则直接建仓并推送；否则需先在网页建好**空**仓库
+（不勾 README / license），脚本用 SSH 推。完全离线时也可整体搬运：
+`git bundle create lab.bundle --all`，拷到有网的机器 `git clone lab.bundle` 后再推。
+
+## License
+
+MIT（代码）。第三方材料见 [NOTICE](NOTICE)。实验数据由本仓库脚本实跑生成，可自由引用。
