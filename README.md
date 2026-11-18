@@ -195,3 +195,17 @@ Windows 原生跑 Triton 需换 `triton-windows`，本项目未验证。
 ## License
 
 MIT（代码）。第三方材料见 [NOTICE](NOTICE)。实验数据由本仓库脚本实跑生成，可自由引用。
+---
+
+## 发布到 GitHub
+
+仓库内容已完成，但**发布需要一次外部授权**（本机凭据不在仓库里）：
+
+```bash
+bash scripts/publish.sh --dry-run   # 先看它会做什么
+bash scripts/publish.sh             # 正式发布
+```
+
+两条路径脚本会自动判断：已 `gh auth` 就直接建仓推送；否则需先在网页建好**空**仓库
+（不勾 README/license），脚本用 SSH 推。离线时也可整体搬运：
+`git bundle create lab.bundle --all`。
