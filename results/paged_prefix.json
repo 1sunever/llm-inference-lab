@@ -1,0 +1,57 @@
+{
+  "experiment": "paged_prefix",
+  "timestamp": "2026-11-18T11:15:57+0800",
+  "git_sha": null,
+  "env": {
+    "torch": "2.13.0+cu130",
+    "cuda_built": "13.0",
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "device": "cuda",
+    "triton": "3.7.1",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "sm": "8.9",
+    "vram_gb": 6.0,
+    "sm_count": 20
+  },
+  "data": {
+    "config": {
+      "block_size": 16,
+      "system_prompt_tokens": 1024,
+      "concurrent_sessions": 4,
+      "turns": 4
+    },
+    "rows": [
+      {
+        "workload": "large_pool(4096 blocks)",
+        "pool_blocks": 4096,
+        "hit_blocks": 1192,
+        "query_blocks": 1448,
+        "hit_rate_pct": 82.32044198895028,
+        "prefill_tokens_saved": 19072,
+        "total_tokens": 23168,
+        "clamped_blocks": 0
+      },
+      {
+        "workload": "tight_pool(512 blocks)",
+        "pool_blocks": 512,
+        "hit_blocks": 1192,
+        "query_blocks": 1448,
+        "hit_rate_pct": 82.32044198895028,
+        "prefill_tokens_saved": 19072,
+        "total_tokens": 23168,
+        "clamped_blocks": 0
+      },
+      {
+        "workload": "very_tight(128 blocks)",
+        "pool_blocks": 128,
+        "hit_blocks": 1138,
+        "query_blocks": 1448,
+        "hit_rate_pct": 78.59116022099448,
+        "prefill_tokens_saved": 18208,
+        "total_tokens": 23168,
+        "clamped_blocks": 122
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# ---- 实验产物 ----
+# results/*.json 是要入库的（这是"你跑过"的证据）；
+# 只忽略临时/中间文件与超大二进制。
+results/tmp/
+results/*.npy
+*.log
+*.prof
+*.ncu-rep
+
+# ---- 草稿区 ----
+# _run/ 是开发时的临时脚本与探针，不属于交付物；
+# 规范的复现入口是 scripts/run_all.sh。
+_run/
+_upstream/
+# md2pdf.py 渲染时的中间文件（任意目录下）
+_render.html
+_tmp*.pdf
+_tmp*.png
+
+# ---- 模型与数据（体积原因不入库）----
+models/
+data/raw/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

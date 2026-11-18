@@ -1,0 +1,343 @@
+{
+  "experiment": "moe_routing",
+  "timestamp": "2026-11-18T11:20:16+0800",
+  "git_sha": null,
+  "env": {
+    "torch": "2.13.0+cu130",
+    "cuda_built": "13.0",
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "device": "cuda",
+    "triton": "3.7.1",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "sm": "8.9",
+    "vram_gb": 6.0,
+    "sm_count": 20
+  },
+  "data": {
+    "config": {
+      "dim": 512,
+      "hidden": 1024,
+      "num_experts": 8,
+      "top_k": 2,
+      "capacity_factor": 1.25,
+      "dtype": "float32",
+      "device": "cuda",
+      "tokens": [
+        1,
+        2,
+        8,
+        32,
+        128,
+        512
+      ],
+      "tokens_extended": [
+        1024,
+        2048
+      ],
+      "expert_sweep": [
+        2,
+        8,
+        32
+      ],
+      "warmup_burn_s": 2.0,
+      "rep": 50,
+      "trials": 3,
+      "selection": "每个配置跑 3 轮 bench，取中位数最小的那轮（共享 GPU 上干扰是单边的，只会让某轮变慢）；每轮的 median 都记在 moe_trial_medians_ms 里"
+    },
+    "gpu_clock_at_start": {
+      "sm_clock_mhz": 2340.0,
+      "utilization_pct": 58.0,
+      "power_w": 30.69,
+      "temp_c": 72.0
+    },
+    "gpu_clock_at_end": {
+      "sm_clock_mhz": 2400.0,
+      "utilization_pct": 96.0,
+      "power_w": 49.18,
+      "temp_c": 75.0
+    },
+    "param_accounting": {
+      "moe_total_params": 12587008,
+      "moe_expert_params": 12582912,
+      "moe_router_params": 4096,
+      "moe_active_params_per_token": 3149824,
+      "moe_sparsity": 0.7497559388219981,
+      "dense_equal_params_hidden": 8195,
+      "dense_equal_params_params": 12587520,
+      "dense_equal_flops_hidden": 2048,
+      "dense_equal_flops_params": 3145728,
+      "flops_ratio_moe_vs_dense_equal_params": 0.2502338824486475
+    },
+    "token_sweep": [
+      {
+        "num_tokens": 1,
+        "moe_ms": 1.0356320142745972,
+        "moe_median_ms": 1.0356320142745972,
+        "moe_min_ms": 0.8171520233154297,
+        "moe_with_aux_ms": 1.3263360261917114,
+        "dense_equal_params_ms": 0.25600001215934753,
+        "dense_equal_params_min_ms": 0.2303999960422516,
+        "dense_equal_flops_ms": 0.12121599912643433,
+        "dense_equal_flops_min_ms": 0.1085439994931221,
+        "speedup_vs_dense_equal_params": 0.2471920611093327,
+        "speedup_vs_dense_equal_flops": 0.11704543453239945,
+        "moe_trial_medians_ms": [
+          1.0356320142745972,
+          1.0552319884300232,
+          1.2677119970321655
+        ],
+        "moe_median_over_min": 1.2673676191520997,
+        "moe_aux_overhead_ms": 0.061440110206604004,
+        "moe_aux_overhead_trials_ms": [
+          0.04710400104522705,
+          0.061440110206604004,
+          0.17612791061401367
+        ]
+      },
+      {
+        "num_tokens": 2,
+        "moe_ms": 1.1564800143241882,
+        "moe_median_ms": 1.1564800143241882,
+        "moe_min_ms": 1.0147839784622192,
+        "moe_with_aux_ms": 1.266207993030548,
+        "dense_equal_params_ms": 0.33689600229263306,
+        "dense_equal_params_min_ms": 0.30720001459121704,
+        "dense_equal_flops_ms": 0.12379200011491776,
+        "dense_equal_flops_min_ms": 0.10364799946546555,
+        "speedup_vs_dense_equal_params": 0.29131156450594164,
+        "speedup_vs_dense_equal_flops": 0.10704205743430684,
+        "moe_trial_medians_ms": [
+          1.1939200162887573,
+          1.1564800143241882,
+          1.1852480173110962
+        ],
+        "moe_median_over_min": 1.1396317234695525,
+        "moe_aux_overhead_ms": 0.16508805751800537,
+        "moe_aux_overhead_trials_ms": [
+          0.16307199001312256,
+          0.16508805751800537,
+          0.19865596294403076
+        ]
+      },
+      {
+        "num_tokens": 8,
+        "moe_ms": 1.1335200071334839,
+        "moe_median_ms": 1.1335200071334839,
+        "moe_min_ms": 1.0240000486373901,
+        "moe_with_aux_ms": 1.2676799893379211,
+        "dense_equal_params_ms": 0.3394560068845749,
+        "dense_equal_params_min_ms": 0.30720001459121704,
+        "dense_equal_flops_ms": 0.11814400181174278,
+        "dense_equal_flops_min_ms": 0.08108799904584885,
+        "speedup_vs_dense_equal_params": 0.2994706796071579,
+        "speedup_vs_dense_equal_flops": 0.10422753993598463,
+        "moe_trial_medians_ms": [
+          1.1335200071334839,
+          1.1484160423278809,
+          1.1530240178108215
+        ],
+        "moe_median_over_min": 1.106953079388843,
+        "moe_aux_overhead_ms": 0.22425603866577148,
+        "moe_aux_overhead_trials_ms": [
+          0.20070397853851318,
+          0.22425603866577148,
+          0.33279991149902344
+        ]
+      },
+      {
+        "num_tokens": 32,
+        "moe_ms": 1.4986239671707153,
+        "moe_median_ms": 1.4986239671707153,
+        "moe_min_ms": 1.2298239469528198,
+        "moe_with_aux_ms": 1.7925119996070862,
+        "dense_equal_params_ms": 0.3896320015192032,
+        "dense_equal_params_min_ms": 0.3317759931087494,
+        "dense_equal_flops_ms": 0.1950720027089119,
+        "dense_equal_flops_min_ms": 0.131071999669075,
+        "speedup_vs_dense_equal_params": 0.2599931737744712,
+        "speedup_vs_dense_equal_flops": 0.13016741156034797,
+        "moe_trial_medians_ms": [
+          1.8759679794311523,
+          1.4986239671707153,
+          1.5733759999275208
+        ],
+        "moe_median_over_min": 1.218567885983934,
+        "moe_aux_overhead_ms": 0.34399986267089844,
+        "moe_aux_overhead_trials_ms": [
+          0.297760009765625,
+          0.34399986267089844,
+          0.35452795028686523
+        ]
+      },
+      {
+        "num_tokens": 128,
+        "moe_ms": 1.813423991203308,
+        "moe_median_ms": 1.813423991203308,
+        "moe_min_ms": 1.3772799968719482,
+        "moe_with_aux_ms": 2.209791898727417,
+        "dense_equal_params_ms": 0.7255039811134338,
+        "dense_equal_params_min_ms": 0.5601279735565186,
+        "dense_equal_flops_ms": 0.2364640012383461,
+        "dense_equal_flops_min_ms": 0.1884160041809082,
+        "speedup_vs_dense_equal_params": 0.40007410546720595,
+        "speedup_vs_dense_equal_flops": 0.13039642267081678,
+        "moe_trial_medians_ms": [
+          2.268671989440918,
+          1.813423991203308,
+          2.458624005317688
+        ],
+        "moe_median_over_min": 1.3166705356368507,
+        "moe_aux_overhead_ms": 0.1884160041809082,
+        "moe_aux_overhead_trials_ms": [
+          0.17612791061401367,
+          0.1884160041809082,
+          0.34294402599334717
+        ]
+      },
+      {
+        "num_tokens": 512,
+        "moe_ms": 2.258944034576416,
+        "moe_median_ms": 2.258944034576416,
+        "moe_min_ms": 1.4469120502471924,
+        "moe_with_aux_ms": 2.6936639547348022,
+        "dense_equal_params_ms": 5.165055990219116,
+        "dense_equal_params_min_ms": 3.555327892303467,
+        "dense_equal_flops_ms": 1.1904000043869019,
+        "dense_equal_flops_min_ms": 0.605184018611908,
+        "speedup_vs_dense_equal_params": 2.286491347798104,
+        "speedup_vs_dense_equal_flops": 0.5269718887082205,
+        "moe_trial_medians_ms": [
+          2.258944034576416,
+          2.323456048965454,
+          2.5497599840164185
+        ],
+        "moe_median_over_min": 1.561217237903641,
+        "moe_aux_overhead_ms": 0.10956811904907227,
+        "moe_aux_overhead_trials_ms": [
+          0.024576187133789062,
+          0.10956811904907227,
+          0.11161589622497559
+        ]
+      }
+    ],
+    "extended_token_sweep": [
+      {
+        "num_tokens": 1024,
+        "moe_ms": 3.875839948654175,
+        "moe_median_ms": 3.875839948654175,
+        "moe_min_ms": 2.9521920680999756,
+        "moe_with_aux_ms": 4.487167835235596,
+        "dense_equal_params_ms": 10.646016120910645,
+        "dense_equal_params_min_ms": 9.12384033203125,
+        "dense_equal_flops_ms": 1.913856029510498,
+        "dense_equal_flops_min_ms": 1.6179200410842896,
+        "speedup_vs_dense_equal_params": 2.746763607874806,
+        "speedup_vs_dense_equal_flops": 0.49379129552938705,
+        "moe_trial_medians_ms": [
+          4.011520147323608,
+          3.875839948654175,
+          4.072448015213013
+        ],
+        "moe_median_over_min": 1.3128684920384117,
+        "moe_aux_overhead_ms": 0.1218559741973877,
+        "moe_aux_overhead_trials_ms": [
+          -0.5191681385040283,
+          0.1218559741973877,
+          0.2447361946105957
+        ]
+      },
+      {
+        "num_tokens": 2048,
+        "moe_ms": 6.091776132583618,
+        "moe_median_ms": 6.091776132583618,
+        "moe_min_ms": 5.042175769805908,
+        "moe_with_aux_ms": 4.634624004364014,
+        "dense_equal_params_ms": 20.506624221801758,
+        "dense_equal_params_min_ms": 18.46169662475586,
+        "dense_equal_flops_ms": 4.749311923980713,
+        "dense_equal_flops_min_ms": 3.4099199771881104,
+        "speedup_vs_dense_equal_params": 3.366280010211829,
+        "speedup_vs_dense_equal_flops": 0.7796267985912435,
+        "moe_trial_medians_ms": [
+          6.091776132583618,
+          7.062016010284424,
+          6.8239359855651855
+        ],
+        "moe_median_over_min": 1.2081641756844412,
+        "moe_aux_overhead_ms": 0.8796157836914062,
+        "moe_aux_overhead_trials_ms": [
+          0.10547208786010742,
+          0.8796157836914062,
+          1.0629119873046875
+        ]
+      }
+    ],
+    "expert_sweep": [
+      {
+        "num_experts": 2,
+        "dropless": true,
+        "moe_params": 3146752,
+        "dense_equal_params_hidden": 2049,
+        "dense_equal_params": 3147264,
+        "moe_ms": 2.587151885032654,
+        "dense_equal_params_ms": 0.18875200301408768,
+        "speedup_vs_dense_equal_params": 0.0729574495050202,
+        "moe_kernels": 56.0
+      },
+      {
+        "num_experts": 8,
+        "dropless": true,
+        "moe_params": 12587008,
+        "dense_equal_params_hidden": 8195,
+        "dense_equal_params": 12587520,
+        "moe_ms": 3.1160160303115845,
+        "dense_equal_params_ms": 1.8193280100822449,
+        "speedup_vs_dense_equal_params": 0.5838634950476561,
+        "moe_kernels": 56.0
+      },
+      {
+        "num_experts": 32,
+        "dropless": true,
+        "moe_params": 50348032,
+        "dense_equal_params_hidden": 32779,
+        "dense_equal_params": 50348544,
+        "moe_ms": 5.718031883239746,
+        "dense_equal_params_ms": 6.082592010498047,
+        "speedup_vs_dense_equal_params": 1.0637562249918318,
+        "moe_kernels": 56.0
+      }
+    ],
+    "kernel_counts": {
+      "moe_n1": 48.0,
+      "moe_with_aux_n1": 56.0,
+      "dense_equal_params_n1": 6.0,
+      "moe_n128": 49.0,
+      "moe_with_aux_n128": 57.0,
+      "dense_equal_params_n128": 8.0,
+      "moe_n512": 49.0,
+      "moe_with_aux_n512": 57.0,
+      "dense_equal_params_n512": 6.0
+    },
+    "launch_gap": {
+      "chain_1_median_ms": 0.004991999827325344,
+      "chain_1_min_ms": 0.004127999767661095,
+      "chain_10_median_ms": 0.02505600079894066,
+      "chain_10_min_ms": 0.02425600029528141,
+      "chain_40_median_ms": 1.3191360235214233,
+      "chain_40_min_ms": 0.5113919973373413,
+      "us_per_extra_kernel": 33.696000607540974,
+      "us_per_extra_kernel_min": 13.006769168453339
+    },
+    "batch1_breakdown_ms": {
+      "router_only_ms": 0.39100800454616547,
+      "full_layer_ms": 1.6058239936828613,
+      "router_share": 0.24349368678282854
+    },
+    "correctness_check": {
+      "max_abs_diff_moe_e1_vs_dense": 0.0
+    },
+    "peak_memory_mb": 548.55419921875,
+    "notes": "batch=1（decode）时 MoE 比等参数量 dense 慢 4.05x（1.036 ms vs 0.256 ms），比等算力的 dense 慢 8.5x（1.036 ms vs 0.121 ms）。额外开销的来源，按实测排序：(1) kernel 数：N=1 时 MoE 一次前向发出 48 个 CUDA 事件，等参数量 dense 只有 6 个；本机单次 launch 间隙实测 13.0 us（链式 add 的斜率，min 口径），光这一项就是 546 us，因为 K=1 的每个 MoE kernel 只处理 1 个 token，算术量小到完全被 launch 吞掉。(2) gather/scatter：token 要散射进 [E, capacity, dim] 槽位再收回来，是随机全局访存，没有合并访存的机会，带宽利用率远低于 dense 的连续读。(3) 路由本身的固定成本：gate 很小，但 softmax+topk+position-in-expert 容量掩码几乎与 token 数无关；实测路由单独 0.391 ms，占 N=1 总时间的 24%。(4) aux loss（训练路径才有）：多 8 个 kernel，配对实测每层多付 0.061 ms。反过来 N=512 时 MoE 比等参数量 dense 快 2.29x——MoE 省的是权重读取量，只有把一个 kernel 喂饱之后这笔账才开始占主导。注意 MoE 始终打不过'等算力 dense'（0.53x）：E 倍显存换来的只是在这些 token 上追平一部分，真正要省算力得靠更大的 batch。另外 E 从 2 扫到 32，kernel 数几乎不变（56/56/56），因为实现里没有 per-expert 循环——增长的是 bmm 的 pad 行数，不是 launch 次数。"
+  }
+}

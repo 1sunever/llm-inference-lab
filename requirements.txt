@@ -1,0 +1,12 @@
+# 运行实验所需的最小依赖。
+# 说明：本项目在 WSL2 (Ubuntu 24.04) + CUDA 13.0 + PyTorch 2.13 + Triton 3.7 上实测通过；
+# Windows 原生环境下 Triton 需自行替换为 triton-windows，未在本项目验证。
+torch>=2.4
+triton>=3.0
+numpy>=1.26
+matplotlib>=3.8
+pandas>=2.1
+tqdm>=4.66
+
+# 可选：模型相关的实验（speculative decoding 的真实模型版本）才需要
+# transformers>=4.44

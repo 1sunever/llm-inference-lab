@@ -1,0 +1,46 @@
+llm-inference-lab
+Copyright (c) 2026 sunever
+
+本仓库的原创代码以 MIT 许可证发布，全文见根目录 LICENSE。
+
+============================  第三方材料声明  ============================
+
+本仓库**不包含**任何第三方源代码副本。四个模块（flash_attn / paged_attn /
+moe / spec_decode）均为依据公开论文独立实现。
+
+作为对照阅读与验证参考，本项目引用或提到了以下开源项目。它们的许可证
+适用于各自项目，不适用于本仓库代码：
+
+  - Dao-AILab/flash-attention      BSD-3-Clause
+    https://github.com/Dao-AILab/flash-attention
+    用途：FlashAttention 算法的参考实现，用于确认本仓库 Triton 版本的
+    数值行为与工业实现一致。
+
+  - vllm-project/vllm              Apache-2.0
+    https://github.com/vllm-project/vllm
+    用途：PagedAttention / 前缀缓存 / 投机解码的工业实现对照。具体对照到
+    哪个文件的哪一部分，见 third_party/README.md 的表格。
+
+  - triton-lang/triton             MIT
+    https://github.com/triton-lang/triton
+    用途：本仓库 kernel 的编译器与运行时依赖。
+
+  - pytorch/pytorch                BSD-3-Clause
+    https://github.com/pytorch/pytorch
+    用途：张量运行时；其 scaled_dot_product_attention 作为性能基线与
+    正确性交叉验证的第三方参考。
+
+若需要拉取上述项目源码进行对照，运行 scripts/fetch_upstream.sh，
+内容会落在 _upstream/（已加入 .gitignore，不会进入版本库）。
+
+============================  数据与图表  ============================
+
+results/*.json 与 figures/*.png 全部由本仓库脚本在本机
+（NVIDIA RTX 4050 Laptop / 6 GB / sm_89）实跑生成，未做人工修改。
+每份 json 内含 env 字段记录 torch/triton 版本、GPU 型号、SM 数量，
+可直接核对。论文中引用的数字均在正文标注了出处，不与本机实测混用。
+
+============================  免责说明  ============================
+
+本项目为学习与研究用途的质量基准代码，未经过生产环境验证。
+使用前请自行评估，作者不对任何后果负责。

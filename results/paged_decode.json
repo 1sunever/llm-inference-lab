@@ -1,0 +1,72 @@
+{
+  "experiment": "paged_decode",
+  "timestamp": "2026-11-18T11:15:58+0800",
+  "git_sha": null,
+  "env": {
+    "torch": "2.13.0+cu130",
+    "cuda_built": "13.0",
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "device": "cuda",
+    "triton": "3.7.1",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "sm": "8.9",
+    "vram_gb": 6.0,
+    "sm_count": 20
+  },
+  "data": {
+    "config": {
+      "batch": 8,
+      "heads": 8,
+      "head_dim": 64,
+      "block_size": 16
+    },
+    "rows": [
+      {
+        "ctx_len": 128,
+        "batch": 8,
+        "heads": 8,
+        "head_dim": 64,
+        "fused_ms": 0.04608000069856644,
+        "gather_ms": 0.3988479971885681,
+        "speedup_fused_vs_gather": 8.655555363326554
+      },
+      {
+        "ctx_len": 256,
+        "batch": 8,
+        "heads": 8,
+        "head_dim": 64,
+        "fused_ms": 0.02969600073993206,
+        "gather_ms": 0.3348959982395172,
+        "speedup_fused_vs_gather": 11.277478107992646
+      },
+      {
+        "ctx_len": 512,
+        "batch": 8,
+        "heads": 8,
+        "head_dim": 64,
+        "fused_ms": 0.053247999399900436,
+        "gather_ms": 0.3527679890394211,
+        "speedup_fused_vs_gather": 6.624999868822878
+      },
+      {
+        "ctx_len": 1024,
+        "batch": 8,
+        "heads": 8,
+        "head_dim": 64,
+        "fused_ms": 0.1013759970664978,
+        "gather_ms": 0.5852160155773163,
+        "speedup_fused_vs_gather": 5.772727593430648
+      },
+      {
+        "ctx_len": 2048,
+        "batch": 8,
+        "heads": 8,
+        "head_dim": 64,
+        "fused_ms": 0.24371199309825897,
+        "gather_ms": 1.0291200280189514,
+        "speedup_fused_vs_gather": 4.222689310181114
+      }
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "experiment": "spec_correctness",
+  "timestamp": "2026-11-18T11:24:01+0800",
+  "git_sha": null,
+  "env": {
+    "torch": "2.13.0+cu130",
+    "cuda_built": "13.0",
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "device": "cuda",
+    "triton": "3.7.1",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "sm": "8.9",
+    "vram_gb": 6.0,
+    "sm_count": 20
+  },
+  "data": {
+    "config": {
+      "V": 8,
+      "p": [
+        0.4000000059604645,
+        0.2199999988079071,
+        0.15000000596046448,
+        0.10000000149011612,
+        0.05999999865889549,
+        0.03999999910593033,
+        0.019999999552965164,
+        0.009999999776482582
+      ],
+      "q": [
+        0.20000000298023224,
+        0.30000001192092896,
+        0.10000000149011612,
+        0.05000000074505806,
+        0.15000000596046448,
+        0.10000000149011612,
+        0.05999999865889549,
+        0.03999999910593033
+      ],
+      "n_trials": 200000,
+      "n_scalar": 20000,
+      "seed": 0,
+      "tv_distance": 0.30000004172325134,
+      "theory_accept_rate": 0.7000000476837158,
+      "chi2_dof": 7,
+      "chi2_critical_0.05": 14.067
+    },
+    "theory_acceptance_rate": 0.7000000476837158,
+    "measured_acceptance_rate": 0.69935,
+    "correct": {
+      "name": "speculative_verify (rejection + residual)",
+      "empirical": [
+        0.40056,
+        0.218835,
+        0.150435,
+        0.099405,
+        0.060445,
+        0.040255,
+        0.020205,
+        0.00986
+      ],
+      "counts": [
+        80112,
+        43767,
+        30087,
+        19881,
+        12089,
+        8051,
+        4041,
+        1972
+      ],
+      "l1": 0.003799990835785909,
+      "max_abs_err": 0.0011649988079071028,
+      "chi2": 4.148446875498728,
+      "dof": 7,
+      "chi2_critical_0.05": 14.067,
+      "batch_seconds": 0.02263143899995157
+    },
+    "naive_accept_all": {
+      "name": "naive: accept draft token without verification",
+      "empirical": [
+        0.200005,
+        0.298905,
+        0.0999,
+        0.049845,
+        0.150275,
+        0.10103,
+        0.060075,
+        0.039965
+      ],
+      "l1": 0.6005000175088644,
+      "max_abs_err": 0.1999950059604645,
+      "chi2": 113843.37025532332,
+      "dof": 7,
+      "chi2_critical_0.05": 14.067
+    },
+    "naive_no_correction": {
+      "name": "naive: rejection without residual correction",
+      "empirical": [
+        0.320545,
+        0.28405,
+        0.145585,
+        0.07949,
+        0.078195,
+        0.05272,
+        0.025985,
+        0.01343
+      ],
+      "l1": 0.20876001750886441,
+      "max_abs_err": 0.07945500596046445,
+      "chi2": 10259.335345047253,
+      "dof": 7,
+      "chi2_critical_0.05": 14.067
+    },
+    "noise_floor": {
+      "l1_between_two_independent_halves": 0.008679999999999985,
+      "half_size": 100000
+    },
+    "scalar_vs_batch": {
+      "n_scalar": 20000,
+      "scalar_seconds": 1.9993159450000348,
+      "l1_scalar_vs_p": 0.009499987408518776,
+      "chi2_scalar_vs_p": 4.152824313066757,
+      "l1_scalar_vs_batch_empirical": 0.007579999999999955
+    },
+    "tree_mask_test": {
+      "status": "PASS"
+    }
+  }
+}
