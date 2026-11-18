@@ -197,9 +197,16 @@ Windows 原生跑 Triton 需换 `triton-windows`，本项目未验证。
 仓库内容已完成，但**发布需要一次外部授权**（凭据不在仓库里）。本机对 `github.com`
 的 HTTPS 不稳定——`gh auth login --web` 所需的 OAuth POST 会超时，而 SSH 可用。
 
+```powershell
+# Windows 上更常用（已实测 -DryRun 能通过，SSH 认证 OK）
+powershell -ExecutionPolicy Bypass -File scripts\publish.ps1 -DryRun
+powershell -ExecutionPolicy Bypass -File scripts\publish.ps1
+```
+
 ```bash
-bash scripts/publish.sh --dry-run   # 先看它会做什么
-bash scripts/publish.sh             # 正式发布
+# Git Bash 里（注意：WSL 内没有 SSH key，别在 WSL 里跑）
+bash scripts/publish.sh --dry-run
+bash scripts/publish.sh
 ```
 
 脚本自动判断走哪条路：已 `gh auth` 则直接建仓并推送；否则需先在网页建好**空**仓库
