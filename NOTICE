@@ -33,6 +33,9 @@ moe / spec_decode）均为依据公开论文独立实现。
 若需要拉取上述项目源码进行对照，运行 scripts/fetch_upstream.sh，
 内容会落在 _upstream/（已加入 .gitignore，不会进入版本库）。
 
+上述项目的许可证原文保存在 third_party/licenses/，内容未经修改；
+抓取日期、SPDX 标识与 blob sha 见 third_party/licenses/PROVENANCE.md。
+
 ============================  数据与图表  ============================
 
 results/*.json 与 figures/*.png 全部由本仓库脚本在本机

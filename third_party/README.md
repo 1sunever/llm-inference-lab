@@ -14,6 +14,10 @@
 想自己对照的话，跑 `scripts/fetch_upstream.sh` 会把上游拉进 `_upstream/`
 （已 gitignore），然后按下面的表格去读对应文件。
 
+上游许可证原文保存在 [`licenses/`](licenses/)，抓取日期、SPDX 标识与
+blob sha 见 [`licenses/PROVENANCE.md`](licenses/PROVENANCE.md)。保留原件是
+为了让"参考了哪个项目、什么许可、哪一版"可追溯，而不是只在正文写一句"参考了 vLLM"。
+
 ---
 
 ## 1. 对照阅读表
